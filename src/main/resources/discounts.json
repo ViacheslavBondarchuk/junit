@@ -1,0 +1,12 @@
+[
+  {
+    "itemUuid": "A",
+    "quantity": 3,
+    "price": 3.00
+  },
+  {
+    "itemUuid": "C",
+    "quantity": 6,
+    "price": 5.00
+  }
+]
