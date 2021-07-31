@@ -25,11 +25,13 @@ public final class DataLoaderUtil {
 
     @SuppressWarnings("unchecked")
     public static List<Item> loadItems(ItemName itemName) throws IOException {
-        return OBJECT_MAPPER.readValue(
-                        new InputStreamReader(CLASS_LOADER.getResourceAsStream(MessageFormat.format(ITEMS_PATH, itemName.value()))),
-                        new TypeReference<List<Item>>() {}
-                ).stream()
-                .filter(item -> item.getPrice() >= 0.0)
-                .collect(Collectors.toList());
+        try (InputStreamReader inputStreamReader = new InputStreamReader(CLASS_LOADER.getResourceAsStream(MessageFormat.format(ITEMS_PATH, itemName.value())))) {
+            return OBJECT_MAPPER.readValue(
+                            inputStreamReader,
+                            new TypeReference<List<Item>>() {}
+                    ).stream()
+                    .filter(item -> item.getPrice() >= 0.0)
+                    .collect(Collectors.toList());
+        }
     }
 }
