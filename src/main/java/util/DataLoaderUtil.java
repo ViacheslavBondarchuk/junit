@@ -3,6 +3,7 @@ package util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Item;
+import model.ItemName;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,9 +24,9 @@ public final class DataLoaderUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<Item> loadItems(String suffix) throws IOException {
+    public static List<Item> loadItems(ItemName itemName) throws IOException {
         return OBJECT_MAPPER.readValue(
-                        new InputStreamReader(CLASS_LOADER.getResourceAsStream(MessageFormat.format(ITEMS_PATH, suffix))),
+                        new InputStreamReader(CLASS_LOADER.getResourceAsStream(MessageFormat.format(ITEMS_PATH, itemName.value()))),
                         new TypeReference<List<Item>>() {}
                 ).stream()
                 .filter(item -> item.getPrice() >= 0.0)

@@ -3,6 +3,7 @@ package service.impl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Discount;
+import model.ItemName;
 import service.DiscountService;
 import util.DataLoaderUtil;
 
@@ -15,15 +16,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DiscountServiceImpl implements DiscountService {
-    private Map<String, Discount> discountMap;
+    private Map<ItemName, Discount> discountMap;
 
-    public DiscountServiceImpl() { init();}
+    public DiscountServiceImpl() {
+        init();
+    }
 
     private void init() {
         try (InputStream inputStream = DataLoaderUtil.loadDiscounts()) {
             discountMap = Optional.ofNullable(new ObjectMapper().readValue(new InputStreamReader(inputStream), new TypeReference<List<Discount>>() {}))
                     .map(discounts -> discounts.stream()
-                            .collect(Collectors.toMap(Discount::getItemUuid, v -> v))
+                            .collect(Collectors.toMap(k -> ItemName.valueOf(k.getItemUuid().toUpperCase()), v -> v))
                     ).orElseThrow(() -> new RuntimeException("Cannot init discounts map"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,7 +34,7 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    public Discount findDiscount(String itemUuid) {
-        return discountMap.get(itemUuid);
+    public Discount findDiscount(ItemName itemName) {
+        return discountMap.get(itemName);
     }
 }

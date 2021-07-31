@@ -4,12 +4,12 @@ import java.util.List;
 
 public class OrderInfo {
     private int quantity;
-    private String itemUuid;
+    private ItemName itemName;
     private float priceForPay;
     private float discountPriceForPay;
 
-    public OrderInfo(List<Item> items, String itemUuid, Discount discount) {
-        this.itemUuid = itemUuid;
+    public OrderInfo(List<Item> items, ItemName itemName, Discount discount) {
+        this.itemName = itemName;
         this.quantity = items.size();
         this.priceForPay = items.stream()
                 .map(Item::getPrice)
@@ -21,8 +21,8 @@ public class OrderInfo {
         return quantity;
     }
 
-    public String getItemUuid() {
-        return itemUuid;
+    public ItemName getItemName() {
+        return itemName;
     }
 
     public float getPriceForPay() {
