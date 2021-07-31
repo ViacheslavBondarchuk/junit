@@ -3,7 +3,6 @@ package service.impl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Discount;
-import model.Item;
 import service.DiscountService;
 import util.DataLoaderUtil;
 

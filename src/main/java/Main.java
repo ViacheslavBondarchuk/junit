@@ -31,10 +31,10 @@ public class Main {
         }
 
         public void start() throws IOException {
-            List<Item> itemsA = new ObjectMapper().readValue(new InputStreamReader(DataLoaderUtil.loadItems("A")), new TypeReference<List<Item>>() {});
-            List<Item> itemsB = new ObjectMapper().readValue(new InputStreamReader(DataLoaderUtil.loadItems("B")), new TypeReference<List<Item>>() {});
-            List<Item> itemsC = new ObjectMapper().readValue(new InputStreamReader(DataLoaderUtil.loadItems("C")), new TypeReference<List<Item>>() {});
-            List<Item> itemsD = new ObjectMapper().readValue(new InputStreamReader(DataLoaderUtil.loadItems("D")), new TypeReference<List<Item>>() {});
+            List<Item> itemsA = DataLoaderUtil.<List<Item>>loadItems("A");
+            List<Item> itemsB = DataLoaderUtil.<List<Item>>loadItems("B");
+            List<Item> itemsC = DataLoaderUtil.<List<Item>>loadItems("C");
+            List<Item> itemsD = DataLoaderUtil.<List<Item>>loadItems("D");
             PaymentInfo paymentInfo = paymentService.payment(new Order(
                             Arrays.asList(
                                     new OrderInfo(itemsA, "A", discountService.findDiscount("A")),
